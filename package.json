@@ -1,6 +1,6 @@
 {
   "name": "vide-plugin-format",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "vic.wang",
   "scripts": {
     "start": "babel ./src/ -d ./lib/"
@@ -22,7 +22,6 @@
     "simple-file-logger": "1.0.1"
   },
   "dependencies": {
-    "js-beautify": "^1.6.14",
-    "json-beautify": "^1.0.1"
+    "js-beautify": "^1.6.14"
   }
 }
