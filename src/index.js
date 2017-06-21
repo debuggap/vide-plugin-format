@@ -8,32 +8,26 @@ function matchType (con) {
     con = JSON.parse(con)
     return 'json'
   } catch (e) {}
-  // match html
-  if (/html/.test(con) && /body/.test(con)) {
-    return 'html'
+  let match = {
+    html: {count: 0, words: [/<html/, /<body/, /<title/, /<head/, /<div/]},
+    js: {count: 0, words: [/var/, /function/, /return/, /if/, /let/]},
+    css: {count: 0, words: [/color/, /font-size/, /display/, /width/, /height/]}
   }
-  // match css
-  let count = 0;
-  /color/.test(con) && count ++;
-  /font-size/.test(con) && count ++;
-  /display/.test(con) && count ++;
-  /width/.test(con) && count ++;
-  /height/.test(con) && count ++;
-  if (count >= 3) {
-    return 'css'
+  let currentCount = 0
+  let type = null
+  for (let i in match) {
+    let words = match[i].words
+    for (let j = 0; j < words.length; j++) {
+      if (words[j].test(con)) {
+        match[i].count ++
+      }
+    }
+    if (match[i].count > currentCount) {
+      currentCount = match[i].count
+      type = i
+    }
   }
-  // match js
-  count = 0;
-  /var/.test(con) && count ++;
-  /function/.test(con) && count ++;
-  /return/.test(con) && count ++;
-  /if/.test(con) && count ++;
-  /let/.test(con) && count ++;
-  /typeof/.test(con) && count ++;
-  if (count >= 4) {
-    return 'js'
-  }
-  return null
+  return type
 }
 
 function beautifyContent (con, ext, option) {
