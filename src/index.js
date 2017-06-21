@@ -26,6 +26,9 @@ function matchType (con) {
       currentCount = match[i].count
       type = i
     }
+    if (match[i].count === words.length) {
+      break
+    }
   }
   return type
 }
